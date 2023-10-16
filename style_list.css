@@ -1,0 +1,43 @@
+body{
+    background-color: #008080;
+}
+
+h1{
+    font-family: Bahnschrift SemiBold;
+    font-size: 40px;
+    color: white;
+}
+
+a{
+    font-family: Bahnschrift SemiBold;
+    font-size: 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    color: white;
+}
+
+li{
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+
+button{
+    margin-left: 10px;
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-radius: 0;
+    border: 0 transparent;
+    color: black;
+    box-shadow: #DAA520 7px 7px 0px;
+    font-family: Bahnschrift SemiBold;
+}
+
+button:hover{
+    background-color: #f2f2f2;
+}
+
+button:active{
+    background-color: #01C497;
+}

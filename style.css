@@ -1,0 +1,44 @@
+body{
+    width: 200px;
+    height: 300px;
+    background-color: #008080;
+}
+
+#Title{
+    text-align: center;
+    color: white;
+    font-family: Bahnschrift SemiBold;
+}
+
+#buttons_parent{
+    margin: auto;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.button_childs{
+    margin-top:30px ;
+}
+
+button{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-radius: 0;
+    border: 0 transparent;
+    color: black;
+    box-shadow: #DAA520 7px 7px 0px;
+    font-family: Bahnschrift SemiBold;
+}
+
+button:hover{
+    background-color: #f2f2f2;
+}
+
+button:active{
+    background-color: #01C497;
+}
+
+p{
+    font-family: Bahnschrift SemiBold;
+}
