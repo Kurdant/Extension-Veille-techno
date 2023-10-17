@@ -1,30 +1,42 @@
 document.addEventListener('DOMContentLoaded', function () {
   var linkList = document.getElementById('linkList');
 
-  chrome.storage.local.get({ links: [] }, function (data) {
-    var links = data.links;
+  function updateList() {
+    linkList.innerHTML = ''; // Efface la liste existante
 
-    links.forEach(function (link) {
-      var listItem = document.createElement('li');
-      var linkElement = document.createElement('a');
-      linkElement.textContent = link.url; // Utilisez link.url pour afficher correctement l'URL
-      linkElement.href = link.url; // Utilisez link.url pour l'URL
-      linkElement.target = '_blank';
-      listItem.appendChild(linkElement);
+    chrome.storage.local.get({ links: [] }, function (data) {
+      var links = data.links;
 
-      var deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Supprimer';
-      deleteButton.addEventListener('click', function () {
-        links = links.filter(function (item) {
-          return item.url !== link.url; // Utilisez item.url pour la comparaison
+      links.forEach(function (link) {
+        var listItem = document.createElement('li');
+
+        var trashIcon = document.createElement('img');
+        trashIcon.src = 'images/poubelle-de-recyclage.png';
+        trashIcon.alt = 'Supprimer';
+        trashIcon.className = 'trash-icon';
+
+        trashIcon.addEventListener('click', function () {
+          links = links.filter(function (item) {
+            return item !== link;
+          });
+          chrome.storage.local.set({ links: links }, function () {
+            updateList(); // Met à jour la liste après la suppression
+          });
         });
-        chrome.storage.local.set({ links: links }, function () {
-          listItem.remove();
-        });
+
+        var linkElement = document.createElement('a');
+        linkElement.textContent = link.title;
+        linkElement.href = link.url;
+        linkElement.target = '_blank';
+
+        listItem.appendChild(trashIcon);
+        listItem.appendChild(linkElement);
+
+        linkList.appendChild(listItem);
       });
-      listItem.appendChild(deleteButton);
-
-      linkList.appendChild(listItem);
     });
-  });
+  }
+
+  // Met à jour la liste lors du chargement initial
+  updateList();
 });

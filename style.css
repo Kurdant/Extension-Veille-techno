@@ -1,13 +1,20 @@
 body{
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
     background-color: #008080;
 }
 
-#Title{
+#Title_modal{
     text-align: center;
     color: white;
     font-family: Bahnschrift SemiBold;
+}
+
+#category{
+    width: 102%;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 25px;
 }
 
 #buttons_parent{
@@ -18,6 +25,26 @@ body{
 
 .button_childs{
     margin-top:30px ;
+}
+
+#title{
+    width: 100%;
+    height: 35px;
+    margin-top: 5px;
+}
+
+#modal{
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0px 0px 10px;
+    outline: 999em solid rgb(0 0 0 / 26%);
+    background: #008080;
+    padding: 20px !important;
+    width: 90% !important;
+}
+
+.title_modal_modal{
+    color: white;
 }
 
 button{
@@ -41,4 +68,18 @@ button:active{
 
 p{
     font-family: Bahnschrift SemiBold;
+}
+
+#closeModal{
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: #009688;
+    color: white;
+    box-shadow: 0 0 0;
+}
+
+#saveLink{
+    width: 40%;
+    height: 30px;
 }
