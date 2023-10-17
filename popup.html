@@ -9,7 +9,33 @@
   <div id="buttons_parent">
     <div class="button_childs">
       <button id="recordButton">Sauvegarder le lien</button>
+      <dialog>
+        <div id="modal">
+          <div id="Title">
+            <h1>Choisir une catégories</h1>
+            <button class="closemodal">X</button>
+          </div>
+          <div>
+            <div>
+							<label for="title" class="label">Titre</label>
+							<input type="text" class="labelModal" id="title" name="title">
+						</div>
+          </div>
+          <div>
+            <div>
+							<label for="title" class="label">Créer une catégories</label>
+							<input type="text" class="catégories_create" id="categories" name="title">
+						</div>
+          </div>
+          <label for="pet-select">Catégories</label>
+          <select name="category" id="categoriesSelect">	
+          </select>
+          <div>
+        </div>
+        <button id="saveButton" type="submit">Valider</button>
+      </dialog>
       <div id="successMessage" style="display: none; color: white;"><p class="lien_sauvegardé">ggwp</p></div>
+      <div id="errorMessage" style="display: none; color: red;"></div>
     </div>
     <div class="button_childs">
       <button id="listButton">Ma liste de Liens</button>

@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     links.forEach(function (link) {
       var listItem = document.createElement('li');
       var linkElement = document.createElement('a');
-      linkElement.textContent = link;
-      linkElement.href = link;
+      linkElement.textContent = link.url; // Utilisez link.url pour afficher correctement l'URL
+      linkElement.href = link.url; // Utilisez link.url pour l'URL
       linkElement.target = '_blank';
       listItem.appendChild(linkElement);
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
       deleteButton.textContent = 'Supprimer';
       deleteButton.addEventListener('click', function () {
         links = links.filter(function (item) {
-          return item !== link;
+          return item.url !== link.url; // Utilisez item.url pour la comparaison
         });
         chrome.storage.local.set({ links: links }, function () {
           listItem.remove();
