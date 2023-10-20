@@ -1,30 +1,59 @@
+
 document.addEventListener('DOMContentLoaded', function () {
-  var linkList = document.getElementById('linkList');
+  const linkList = document.getElementById('linkList');
 
-  chrome.storage.local.get({ links: [] }, function (data) {
-    var links = data.links;
+  function updateList() {
+    linkList.innerHTML = ''; // Efface la liste existante
 
-    links.forEach(function (link) {
-      var listItem = document.createElement('li');
-      var linkElement = document.createElement('a');
-      linkElement.textContent = link.url; // Utilisez link.url pour afficher correctement l'URL
-      linkElement.href = link.url; // Utilisez link.url pour l'URL
-      linkElement.target = '_blank';
-      listItem.appendChild(linkElement);
+    chrome.storage.local.get({ links: [] }, function (data) {
+      const links = data.links;
 
-      var deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Supprimer';
-      deleteButton.addEventListener('click', function () {
-        links = links.filter(function (item) {
-          return item.url !== link.url; // Utilisez item.url pour la comparaison
-        });
-        chrome.storage.local.set({ links: links }, function () {
-          listItem.remove();
-        });
+      const categorizedLinks = {};
+
+      links.forEach(function (link) {
+        const category = link.category || 'Sans catégorie';
+
+        if (!categorizedLinks[category]) {
+          categorizedLinks[category] = [];
+        }
+
+        categorizedLinks[category].push(link);
       });
-      listItem.appendChild(deleteButton);
 
-      linkList.appendChild(listItem);
+      for (const category in categorizedLinks) {
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.textContent = category;
+
+        linkList.appendChild(categoryTitle);
+
+        categorizedLinks[category].forEach(function (link, linkIndex) {
+          const listItem = document.createElement('li');
+
+          const trashIcon = document.createElement('img');
+          trashIcon.src = 'images/poubelle-de-recyclage.png';
+          trashIcon.alt = 'Supprimer';
+          trashIcon.className = 'trash-icon';
+
+          trashIcon.addEventListener('click', function () {
+            links.splice(linkIndex, 1); // Utiliser linkIndex au lieu de i
+            chrome.storage.local.set({ links: links }, function () {
+              updateList();
+            });
+          });
+
+          const linkElement = document.createElement('a');
+          linkElement.textContent = link.title;
+          linkElement.href = link.url;
+          linkElement.target = '_blank';
+
+          listItem.appendChild(trashIcon);
+          listItem.appendChild(linkElement);
+
+          linkList.appendChild(listItem);
+        });
+      }
     });
-  });
+  }
+
+  updateList();
 });
