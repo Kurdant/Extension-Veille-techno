@@ -1,42 +1,57 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var linkList = document.getElementById('linkList');
+  const linkList = document.getElementById('linkList');
 
   function updateList() {
     linkList.innerHTML = ''; // Efface la liste existante
 
     chrome.storage.local.get({ links: [] }, function (data) {
-      var links = data.links;
+      const links = data.links;
+
+      const categorizedLinks = {};
 
       links.forEach(function (link) {
-        var listItem = document.createElement('li');
+        const category = link.category || 'Sans catégorie';
 
-        var trashIcon = document.createElement('img');
-        trashIcon.src = 'images/poubelle-de-recyclage.png';
-        trashIcon.alt = 'Supprimer';
-        trashIcon.className = 'trash-icon';
+        if (!categorizedLinks[category]) {
+          categorizedLinks[category] = [];
+        }
 
-        trashIcon.addEventListener('click', function () {
-          links = links.filter(function (item) {
-            return item !== link;
-          });
-          chrome.storage.local.set({ links: links }, function () {
-            updateList(); // Met à jour la liste après la suppression
-          });
-        });
-
-        var linkElement = document.createElement('a');
-        linkElement.textContent = link.title;
-        linkElement.href = link.url;
-        linkElement.target = '_blank';
-
-        listItem.appendChild(trashIcon);
-        listItem.appendChild(linkElement);
-
-        linkList.appendChild(listItem);
+        categorizedLinks[category].push(link);
       });
+
+      for (const category in categorizedLinks) {
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.textContent = category;
+
+        linkList.appendChild(categoryTitle);
+
+        categorizedLinks[category].forEach(function (link, linkIndex) {
+          const listItem = document.createElement('li');
+
+          const trashIcon = document.createElement('img');
+          trashIcon.src = 'images/poubelle-de-recyclage.png';
+          trashIcon.alt = 'Supprimer';
+          trashIcon.className = 'trash-icon';
+
+          trashIcon.addEventListener('click', function () {
+            links.splice(i, 1);
+            chrome.storage.local.set({ links: links }, function () {
+              updateList();
+            });
+          });         
+          
+          const linkElement = document.createElement('a');
+          linkElement.textContent = link.title;
+          linkElement.href = link.url;
+          linkElement.target = '_blank';
+
+          listItem.appendChild(trashIcon);
+          listItem.appendChild(linkElement);
+
+          linkList.appendChild(listItem);
+        });
+      }
     });
   }
-
-  // Met à jour la liste lors du chargement initial
   updateList();
 });
