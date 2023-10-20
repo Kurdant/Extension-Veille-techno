@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
   const recordButton = document.getElementById('recordButton');
   const modal = document.getElementById('modal');
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const categorySelect = document.getElementById('category');
   const createCategoryInput = document.getElementById('createCategory');
   const createCategoryButton = document.getElementById('createCategoryButton');
-
+  
   // Charger les catégories depuis le stockage local
   chrome.storage.local.get({ categories: [] }, function (data) {
     const categories = data.categories;
@@ -39,6 +38,56 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Supprimer la catégorie sélectionnée avec confirmation
+  const deleteCategoryElement = document.querySelector('.deleteCategory');
+  const confirmationMessageElement = document.querySelector('.confirmationMessage');
+
+  deleteCategoryElement.addEventListener('click', function () {
+    const selectedCategory = categorySelect.value;
+    if (selectedCategory) {
+      // Afficher le message de confirmation
+      confirmationMessageElement.textContent = `Etes-vous sur de vouloir supprimer "${selectedCategory}" ?`;
+      confirmationMessageElement.style.display = 'block';
+
+      // Ajouter un bouton "Confirmer" pour la suppression
+      const confirmButton = document.createElement('button');
+      confirmButton.textContent = 'Confirmer';
+      confirmationMessageElement.appendChild(confirmButton);
+
+      // Gérer la confirmation de suppression
+      confirmButton.addEventListener('click', function () {
+        // Retirer la catégorie sélectionnée de la liste déroulante
+        const options = categorySelect.options;
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].value === selectedCategory) {
+            categorySelect.remove(i);
+            break;
+          }
+        }
+
+        // Mettre à jour les catégories dans le stockage local en supprimant la catégorie
+        chrome.storage.local.get({ categories: [] }, function (data) {
+          const categories = data.categories;
+          const categoryIndex = categories.indexOf(selectedCategory);
+          if (categoryIndex !== -1) {
+            categories.splice(categoryIndex, 1);
+            chrome.storage.local.set({ categories: categories });
+
+            // Supprimer les liens associés à la catégorie
+            chrome.storage.local.get({ links: [] }, function (data) {
+              const links = data.links;
+              const updatedLinks = links.filter(link => link.category !== selectedCategory);
+              chrome.storage.local.set({ links: updatedLinks });
+            });
+          }
+        });
+
+        // Cacher le message de confirmation
+        confirmationMessageElement.style.display = 'none';
+      });
+    }
+  });
+
   recordButton.addEventListener('click', function () {
     modal.showModal(); // Afficher la modal
   });
@@ -52,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
   saveLinkButton.addEventListener('click', function () {
     const title = titleInput.value;
     const category = categorySelect.value;
-  
+
     if (title && category) {
       // Obtenir l'URL du lien à partir de la page active
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -67,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isLinkExists) {
               const linkObject = { url: url, title: title, category: category };
               links.push(linkObject);
-              chrome.storage.local.set({ links: links }, function() {
+              chrome.storage.local.set({ links: links }, function () {
                 console.log('Lien enregistré : ' + url);
                 modal.close();
                 titleInput.value = '';
@@ -85,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     } else {
-      alert('Veuillez mettre un titre et une categorie.');
+      alert('Veuillez remplir le titre et choisir une categorie.');
     }
   });
 

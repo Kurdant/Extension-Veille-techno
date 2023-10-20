@@ -5,10 +5,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id="Title">Enregistreur de page</h1>
+  <div id="Title_Time">
+    <div class="Title_Time_Title">
+      <h1 id="Title">Enregistreur de page</h1>
+    </div>
+    <div class="Title_Time_clock">
+      <iframe src="https://free.timeanddate.com/clock/i92qk4t6/n181/tlfr2/fcfff/tct/pct/ftb/tt0/tw0/tm1/ts1/tb4" frameborder="0" width="82" height="34" allowtransparency="true"></iframe>
+    </div>
+</div>
   <div id="buttons_parent">
     <div class="button_childs">
-      <button id="recordButton">Enregistrer la page</button>
+      <button id="recordButton" class="Button_Edit_Modal">Enregistrer la page</button>
       <dialog id="modal"> 
         <button id="closeModal">x</button> <!-- Bouton pour fermer la modal -->
         <div class="Label_Modal">
@@ -17,8 +24,12 @@
           <input type="text" id="titleInput" name="title">
           <label for="category">Categorie :</label>
           <select id="category" name="category">
-            <!-- Options de catégorie générées dynamiquement -->
+            <label for="category" id="category_label">Categorie :</label>
           </select>
+          
+          <p class="deleteCategory" style="color: #ff5050; cursor: pointer;">Supprimer la categorie</p>
+          <p class="confirmationMessage" style="display: none; color: #ff5050;"></p>
+
           <label for="category">Creer une categorie :</label>
           <input type="text" id="createCategory" placeholder="Nouvelle categorie">
           <button id="createCategoryButton">Creer la categorie</button>
@@ -29,7 +40,7 @@
       <div id="successMessage" style="display: none; color: white;"><p class="lien_sauvegardé">Lien sauvegarde avec succes</p></div>
     </div>
     <div class="button_childs">
-      <button id="listButton">Ma liste de liens</button>
+      <button id="listButton" class="Button_Edit_Modal">Ma liste de liens</button>
     </div>
   </div>
   <script src="popup.js"></script>
