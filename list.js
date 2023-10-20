@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
           trashIcon.className = 'trash-icon';
 
           trashIcon.addEventListener('click', function () {
-            links.splice(i, 1);
+            links.splice(linkIndex, 1); // Utiliser linkIndex au lieu de i
             chrome.storage.local.set({ links: links }, function () {
               updateList();
             });
-          });         
-          
+          });
+
           const linkElement = document.createElement('a');
           linkElement.textContent = link.title;
           linkElement.href = link.url;
@@ -53,5 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
   updateList();
 });

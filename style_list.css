@@ -8,6 +8,13 @@ h1{
     color: white;
 }
 
+
+h2{
+    font-family: Bahnschrift SemiBold;
+    font-size: 20px;
+    color: white;
+}
+
 a{
     font-family: Bahnschrift SemiBold;
     font-size: 20px;
@@ -19,6 +26,7 @@ a{
     border-radius: 10px 0px 0px 10px;
     text-decoration: underline;
 }
+
 
 li{
     list-style-type: none;

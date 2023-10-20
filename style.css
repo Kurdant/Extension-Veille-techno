@@ -4,10 +4,23 @@ body{
     background-color: #008080;
 }
 
+h1{
+    color: white;
+}
+
+#Title{
+    margin-left: 18px;
+}
+
 #Title_modal{
     text-align: center;
     color: white;
     font-family: Bahnschrift SemiBold;
+}
+
+
+.Label_Modal{
+    color: white;
 }
 
 #category{
@@ -27,11 +40,18 @@ body{
     margin-top:30px ;
 }
 
-#title{
+#titleInput{
     width: 100%;
     height: 35px;
     margin-top: 5px;
 }
+
+#createCategory{
+    width: 100%;
+    height: 35px;
+    margin-top: 5px;
+}
+
 
 #modal{
     border-radius: 10px;
@@ -82,4 +102,11 @@ p{
 #saveLink{
     width: 40%;
     height: 30px;
+    margin-top: 40px;
+}
+
+#createCategoryButton{
+    width: 40%;
+    height: 30px;
+    margin-top: 10px;
 }

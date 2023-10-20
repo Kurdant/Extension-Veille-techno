@@ -44,29 +44,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id="Title">Hello World!</h1>
+  <h1 id="Title">Enregistreur de page</h1>
   <div id="buttons_parent">
     <div class="button_childs">
-      <button id="recordButton">Sauvegarder le lien</button>
+      <button id="recordButton">Enregistrer la page</button>
       <dialog id="modal"> 
         <button id="closeModal">x</button> <!-- Bouton pour fermer la modal -->
-        <div>
+        <div class="Label_Modal">
           <h1>Enregistrer le lien</h1>
           <label for="title">Titre :</label>
           <input type="text" id="titleInput" name="title">
-          <label for="category">Catégorie :</label>
+          <label for="category">Categorie :</label>
           <select id="category" name="category">
             <!-- Options de catégorie générées dynamiquement -->
           </select>
-          <input type="text" id="createCategory" placeholder="Nouvelle catégorie">
-          <button id="createCategoryButton">Créer la catégorie</button>
-          <button id="saveLink">Sauvegarder</button> <!-- Bouton pour sauvegarder -->
+          <label for="category">Creer une categorie :</label>
+          <input type="text" id="createCategory" placeholder="Nouvelle categorie">
+          <button id="createCategoryButton">Creer la categorie</button>
         </div>
+        <button id="saveLink">Sauvegarder</button> <!-- Bouton pour sauvegarder -->
+
       </dialog>
-      <div id="successMessage" style="display: none; color: white;"><p class="lien_sauvegardé">Lien sauvegardé avec succès</p></div>
+      <div id="successMessage" style="display: none; color: white;"><p class="lien_sauvegardé">Lien sauvegarde avec succes</p></div>
     </div>
     <div class="button_childs">
-      <button id="listButton">Ma liste de Liens</button>
+      <button id="listButton">Ma liste de liens</button>
     </div>
   </div>
   <script src="popup.js"></script>
