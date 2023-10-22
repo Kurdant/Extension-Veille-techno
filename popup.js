@@ -8,8 +8,57 @@ document.addEventListener('DOMContentLoaded', function () {
   const categorySelect = document.getElementById('category');
   const createCategoryInput = document.getElementById('createCategory');
   const createCategoryButton = document.getElementById('createCategoryButton');
+  const FavLinks = document.getElementById('Fav_Links');
+  const Save_Fav_Button = document.getElementById('saveFavLink');
+
+
+  Save_Fav_Button.addEventListener('click', function () {
+    const title = titleInput.value;
+    const category = categorySelect.value;
+
+    if (title && category) {
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        const currentTab = tabs[0];
+        if (currentTab) {
+          const url = currentTab.url;
+          chrome.storage.local.get({ favLinks: [] }, function (data) {
+            const favLinks = data.favLinks;
+            const isLinkExists = favLinks.some(function (link) {
+              return link.url === url;
+            });
+            if (!isLinkExists) {
+              const linkObject = { url: url, title: title, category: category };
+              favLinks.push(linkObject);
+
+              // Limit the number of favorite links to 10
+              if (favLinks.length > 10) {
+                favLinks.shift();
+              }
+
+              chrome.storage.local.set({ favLinks: favLinks }, function () {
+                console.log('Favorite Link saved: ' + url);
+                modal.close();
+                titleInput.value = '';
+                successMessage.style.display = 'block';
+                setTimeout(function () {
+                  successMessage.style.display = 'none';
+                }, 3000);
+                updateFavLinksList();
+              });
+            } else {
+              alert('Favorite Link already saved');
+            }
+          });
+        } else {
+          console.log('Impossible to save the link');
+        }
+      });
+    } else {
+      alert('Please choose a name and a category');
+    }
+  });
   
-  // Charger les catégories depuis le stockage local
+  
   chrome.storage.local.get({ categories: [] }, function (data) {
     const categories = data.categories;
     categories.forEach(function (category) {
@@ -29,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
       categorySelect.add(option);
       createCategoryInput.value = '';
 
-      // Mettre à jour les catégories dans le stockage local
       chrome.storage.local.get({ categories: [] }, function (data) {
         const categories = data.categories;
         categories.push(newCategory);
@@ -38,25 +86,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Supprimer la catégorie sélectionnée avec confirmation
   const deleteCategoryElement = document.querySelector('.deleteCategory');
   const confirmationMessageElement = document.querySelector('.confirmationMessage');
 
   deleteCategoryElement.addEventListener('click', function () {
     const selectedCategory = categorySelect.value;
     if (selectedCategory) {
-      // Afficher le message de confirmation
-      confirmationMessageElement.textContent = `Etes-vous sur de vouloir supprimer "${selectedCategory}" ?`;
+      confirmationMessageElement.textContent = `Are you sure you want to delete "${selectedCategory}" ?`;
       confirmationMessageElement.style.display = 'block';
 
-      // Ajouter un bouton "Confirmer" pour la suppression
       const confirmButton = document.createElement('button');
-      confirmButton.textContent = 'Confirmer';
+      confirmButton.textContent = 'Confirm';
       confirmationMessageElement.appendChild(confirmButton);
 
-      // Gérer la confirmation de suppression
       confirmButton.addEventListener('click', function () {
-        // Retirer la catégorie sélectionnée de la liste déroulante
         const options = categorySelect.options;
         for (let i = 0; i < options.length; i++) {
           if (options[i].value === selectedCategory) {
@@ -65,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         }
 
-        // Mettre à jour les catégories dans le stockage local en supprimant la catégorie
         chrome.storage.local.get({ categories: [] }, function (data) {
           const categories = data.categories;
           const categoryIndex = categories.indexOf(selectedCategory);
@@ -73,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
             categories.splice(categoryIndex, 1);
             chrome.storage.local.set({ categories: categories });
 
-            // Supprimer les liens associés à la catégorie
             chrome.storage.local.get({ links: [] }, function (data) {
               const links = data.links;
               const updatedLinks = links.filter(link => link.category !== selectedCategory);
@@ -82,20 +123,19 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
 
-        // Cacher le message de confirmation
         confirmationMessageElement.style.display = 'none';
       });
     }
   });
 
   recordButton.addEventListener('click', function () {
-    modal.showModal(); // Afficher la modal
+    modal.showModal();
   });
 
   const closeModalButton = document.getElementById('closeModal');
 
   closeModalButton.addEventListener('click', function () {
-    modal.close(); // Fermer la modal
+    modal.close();
   });
 
   saveLinkButton.addEventListener('click', function () {
@@ -103,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const category = categorySelect.value;
 
     if (title && category) {
-      // Obtenir l'URL du lien à partir de la page active
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const currentTab = tabs[0];
         if (currentTab) {
@@ -117,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
               const linkObject = { url: url, title: title, category: category };
               links.push(linkObject);
               chrome.storage.local.set({ links: links }, function () {
-                console.log('Lien enregistré : ' + url);
+                console.log('Link saved: ' + url);
                 modal.close();
                 titleInput.value = '';
                 successMessage.style.display = 'block';
@@ -126,19 +165,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 3000);
               });
             } else {
-              alert('Le lien a deja ete sauvegarde.');
+              alert('Page already saved');
             }
           });
         } else {
-          console.log('Impossible de récupérer le lien.');
+          console.log('Impossible to save the link');
         }
       });
     } else {
-      alert('Veuillez remplir le titre et choisir une categorie.');
+      alert('Please chose a name and a category');
     }
   });
 
   listButton.addEventListener('click', function () {
     chrome.tabs.create({ url: 'list.html' });
   });
+
+  function updateFavLinksList() {
+    FavLinks.innerHTML = ''; // Clear the existing list
+
+    chrome.storage.local.get({ favLinks: [] }, function (data) {
+      const favLinks = data.favLinks;
+      favLinks.forEach(function (link) {
+        const listItem = document.createElement('li');
+
+        const trashIcon = document.createElement('img');
+        trashIcon.src = 'images/poubelle-de-recyclage.png';
+        trashIcon.alt = 'Delete';
+        trashIcon.className = 'trash-icon';
+
+        trashIcon.addEventListener('click', function () {
+          const linkIndex = favLinks.indexOf(link);
+          if (linkIndex !== -1) {
+            favLinks.splice(linkIndex, 1);
+            chrome.storage.local.set({ favLinks: favLinks }, function () {
+              updateFavLinksList();
+            });
+          }
+        });
+
+        const linkElement = document.createElement('a');
+        linkElement.textContent = link.title;
+        linkElement.href = link.url;
+        linkElement.target = '_blank';
+
+        listItem.appendChild(trashIcon);
+        listItem.appendChild(linkElement);
+
+        FavLinks.appendChild(listItem);
+      });
+    });
+  }
+
+  updateFavLinksList(); // Initialize the list of favorite links
 });

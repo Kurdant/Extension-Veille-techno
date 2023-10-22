@@ -129,14 +129,62 @@ p{
     box-shadow: 0 0 0;
 }
 
+#both_buttons{
+display: flex;
+    align-items: center;
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
 #saveLink{
     width: 40%;
     height: 30px;
-    margin-top: 40px;
 }
 
 #createCategoryButton{
     width: 40%;
     height: 30px;
     margin-top: 10px;
+}
+
+#fav_links_div{
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+#fav_links_div ul{
+    padding-left: 20px;
+}
+
+
+#fav_links_div img{
+    width: 25px;
+    z-index: 2;
+    background-color: #ff5050;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#fav_links_div li{
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+#fav_links_div a{
+    color: white;
+    font-size: 15px;
+    font-family: Bahnschrift SemiBold;
+}
+
+h3{
+    color: white;
+    margin-left: 20px;
+}
+
+#both_buttons{
+
 }

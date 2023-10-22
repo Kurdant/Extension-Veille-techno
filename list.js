@@ -1,9 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function () {
   const linkList = document.getElementById('linkList');
 
   function updateList() {
-    linkList.innerHTML = ''; // Efface la liste existante
+    linkList.innerHTML = '';
 
     chrome.storage.local.get({ links: [] }, function (data) {
       const links = data.links;
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
           trashIcon.className = 'trash-icon';
 
           trashIcon.addEventListener('click', function () {
-            links.splice(linkIndex, 1); // Utiliser linkIndex au lieu de i
+            links.splice(linkIndex, 1);
             chrome.storage.local.set({ links: links }, function () {
               updateList();
             });
