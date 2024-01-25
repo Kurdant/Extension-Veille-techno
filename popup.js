@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function updateFavLinksList() {
-    FavLinks.innerHTML = ''; // Clear the existing list
+    FavLinks.innerHTML = '';
 
     chrome.storage.local.get({ favLinks: [] }, function (data) {
       const favLinks = data.favLinks;
@@ -218,4 +218,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   updateFavLinksList(); // Initialize the list of favorite links
+
+  document.getElementById("chatButton").addEventListener("click", function() {
+    chrome.tabs.create({ url: "ChatGPT.html" });
+  });
 });

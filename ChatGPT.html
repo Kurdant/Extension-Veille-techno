@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat avec ChatGPT</title>
+    <style>
+        /* Ajoutez des styles CSS pour la mise en forme de votre interface de chat ici */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-container {
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Chat avec ChatGPT</h1>
+        <div id="chat-messages">
+            <!-- Les messages de la conversation s'afficheront ici -->
+        </div>
+        <input type="text" id="user-input" placeholder="Tapez votre message ici">
+        <button id="send-button">Envoyer</button>
+    </div>
+
+    <script src="Chat_GPT.js"></script>
+</body>
+</html>

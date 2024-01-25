@@ -67,3 +67,24 @@ button:active{
     cursor: pointer;
     margin-right: 10px;
   }
+
+
+#groscacafort{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    transition: 0.3s;
+}
+#petitcacafort{     
+    width: 200px;
+    margin-top:47px;
+    margin-left: 20px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+}
+
+#groscacafort:active{
+    margin-left: 20px;
+    margin-top: 20px;
+}
