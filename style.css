@@ -1,7 +1,7 @@
 
 body{
-    width: 750px;
-    height: 700px;
+    width: 400px;
+    height: 500px;
     background-color: #008080;
 }
 
@@ -185,3 +185,16 @@ h3{
     margin-left: 20px;
 }
   
+
+.Lien_Partie_2{
+    font-family: Bahnschrift SemiBold;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background: #DAA520;
+    height: 30px;
+    width: 100px;
+    align-items: center;
+}

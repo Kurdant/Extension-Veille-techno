@@ -1,0 +1,30 @@
+body{
+    background-color: #D1DDDB;
+    width: 95vw;
+    height: 96vh;
+}
+
+.Copilote_Parent{
+    width: 100px;
+    height: 35px;
+    text-decoration: none;
+    font-family: Bahnschrift SemiBold;
+    color: white;
+    background-color: #85B8CB;
+    align-items: center;
+    justify-content: center;
+    display: flex
+
+}
+
+.Copilote_Link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    text-decoration: none;
+    font-family: Bahnschrift SemiBold;
+    color: white;
+    background-color: #85B8CB;
+}

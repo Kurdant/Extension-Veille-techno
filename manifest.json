@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Enregistreur de liens",
   "version": "1.1", 
-  "description": "Extension pour enregistrer les liens des sites.",
+  "description": "jsp y'a tout et rien",
   "permissions": ["activeTab", "storage","contextMenus","downloads"],
   "action": {
     "default_popup": "popup.html",
