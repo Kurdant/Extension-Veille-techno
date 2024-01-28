@@ -1,0 +1,55 @@
+body{
+    margin: 0px;
+}
+
+#MenuMobile{
+    height: 75px;
+    background-color: #1d6a96;
+    display: flex;
+    align-items: center;
+}
+
+.MenuMobile_Menu{
+    width: 15%;
+    justify-content: center;
+    display: flex;
+}
+
+.MenuMobile_Hamburger{
+    display: flex;
+    flex-direction: column;
+    height: 25px;
+    justify-content: space-between;
+    align-items: center;
+}
+.Tiret_1{
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+.Tiret_2{
+    width: 31px;
+    height: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+.Tiret_3{
+    width: 27px;
+    height: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.MenuMobile_Logo{
+    width: 70%;
+    text-align: center;
+}
+
+.MenuMobile_Logo p{
+    color: white;
+    font-size: 50px;
+    font-family: fantasy;
+}
+
