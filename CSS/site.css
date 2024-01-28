@@ -2,6 +2,8 @@ body{
     margin: 0px;
 }
 
+/* HEADER */
+
 #MenuMobile{
     height: 75px;
     background-color: #1d6a96;
@@ -53,3 +55,65 @@ body{
     font-family: fantasy;
 }
 
+
+/* CUBES du body */
+
+#CUBES{
+    width: 100%;
+    height: 100vh;
+}
+
+.Cube{
+    width: 100%;
+    height: 100%;
+}
+
+.CUBES_Pack1{
+    width: 100%;
+    height: 30%;
+}
+
+
+.CUBES_Packer{
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+.CUBES_Pack2{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.CUBES_Pack3{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.CUBES_Pack4{
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+.n1{
+    background-color: #85b8cb;
+}
+.n2{
+    background-color: #3da6cc;
+}
+.n3{
+    background-color: #60d5ff;
+}
+.n4{
+    background-color: #022f3f;
+}
+.n5{
+    background-color: #0a0d0e;
+}
+.n6{
+    background-color: #65d2f3;
+}
