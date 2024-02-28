@@ -11,6 +11,6 @@ function Notes (){
 
         // Ajout du preneur de note
         var newNote = document.createElement("input");
-        newDiv.appendChild(newNote)
+        newDiv.appendChild(newNote);
     }
 }
