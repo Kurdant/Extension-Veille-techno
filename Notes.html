@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ca note ici ou c'est comment</title>
+</head>
+<body id="Body">
+    <div id="notes et tout">
+        <h1>Toutes vos notes :</h1>
+        <div id="LesNotes">
+
+        </div>
+        <h1>Bonjour, prenez des notes ici : </h1>
+        <div><button onclick="{Notes()}">Nouvelle note</button></div>
+    </div>
+</body>
+<script>
+    function Notes (){
+    if(document.getElementById("Note")) {
+        console.log("cette element existe deja !");
+    } else {
+        // Ajout de la div
+        var newDiv = document.createElement("div");
+        var newContent = document.createTextNode("Nouvelle note !");
+        newDiv.appendChild(newContent);
+        document.body.appendChild(newDiv);
+        newDiv.setAttribute('id', 'Note');
+
+        // Ajout du preneur de note
+        var newNote = document.createElement("textarea");
+        newDiv.appendChild(newNote);
+
+        // Ajout du bouton sauvegarde
+        var saveButton = document.createElement("button")
+        var newButtonTexte = document.createTextNode("Sauvegarder");
+        saveButton.appendChild(newButtonTexte)
+        saveButton.setAttribute('id', 'Save');
+        document.body.appendChild(saveButton)
+
+        var lastNoteDisplayed = "";
+
+        // Ajout fonctionnalité bouton sauvegarde
+        saveButton.addEventListener('click', function() {
+            if(newNote.value === ""){
+                alert("Veuillez écrire une note :)")
+            } 
+            if(newNote.value === lastNoteDisplayed){
+                alert("Veuillez écrire une nouvelle note :)")
+            }else {
+                console.log("gg la note est remplie")
+                var nouvelleNote = newNote.value
+                console.log(nouvelleNote)
+                var laNouvelleNote = document.createElement("p")
+                var texteNote = document.createTextNode(nouvelleNote);
+                laNouvelleNote.appendChild(texteNote)
+                document.body.appendChild(laNouvelleNote)
+                lastNoteDisplayed = newNote.value;
+            }
+        });
+
+
+    }
+}
+
+</script>
+<style>
+    body{
+        width: 100%;
+    }
+    #Note{
+    width: 97%;
+    height: 200px;
+    background-color: rgba(22, 179, 165, 0.178);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    }
+    textarea{
+        background-color: rgba(21, 55, 52, 0.18);
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
+</html>
